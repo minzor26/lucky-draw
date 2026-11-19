@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURA 2026 — Premium Lucky Draw Campaign</title>
+    
+    <!-- Meta tags for social and SEO -->
+    <meta name="description" content="Enter the official AURA 2026 Lucky Draw Campaign. Enter your details, participate in the interactive lucky draw, and win flagship tech and exclusive gifts.">
+    <meta name="keywords" content="Lucky Draw, Online Contest, Win Prizes, Tech Giveaway, Spin to Win, 2026 Campaign">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/css/lucky-draw.css">
+</head>
+<body>
+
+    <!-- Ambient Subtle Particle Background -->
+    <canvas id="bgParticlesCanvas"></canvas>
+
+    <!-- Header Navigation -->
+    <header id="mainHeader" class="site-header">
+        <div class="container header-inner">
+            <a href="#" class="brand-logo" aria-label="AURA 2026 Home">
+                <span class="brand-mark">✦</span>
+                <span class="brand-text">AURA <span class="brand-year">2026</span></span>
+            </a>
+
+            <nav>
+                <ul id="navMenu" class="nav-menu">
+                    <li><a href="#hero" class="nav-link">Home</a></li>
+                    <li><a href="#howItWorks" class="nav-link">How It Works</a></li>
+                    <li><a href="#participate" class="nav-link">Enter</a></li>
+                    <li><a href="#drawGame" class="nav-link">Lucky Draw</a></li>
+                    <li><a href="#prizes" class="nav-link">Prizes</a></li>
+                    <li><a href="#winners" class="nav-link">Winners</a></li>
+                    <li><a href="#faqs" class="nav-link">FAQs</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <button id="soundToggleBtn" class="sound-btn" type="button" aria-label="Toggle Sound Effects">
+                    <span id="soundIcon">🔊</span>
+                    <span id="soundStatusText">Sound On</span>
+                </button>
+                <a href="#participate" class="btn-header-cta">ENTER NOW</a>
+                <button id="navToggle" class="nav-toggle" type="button" aria-label="Toggle Navigation Menu">☰</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- 1. HERO SECTION -->
+        <section id="hero" class="hero-section">
+            <div class="container hero-grid">
+                <div class="hero-content">
+                    <div class="hero-badge-pill">
+                        <span>✨</span>
+                        <span>EXCLUSIVE 2026 CAMPAIGN • LIMITED TIME ENTRY</span>
+                    </div>
+                    
+                    <h1 class="hero-title">
+                        LUCKY <span class="text-gradient-gold">DRAW</span>
+                    </h1>
+
+                    <h2 class="hero-subtitle">
+                        Your Chance to Win Something Amazing
+                    </h2>
+
+                    <p class="hero-description">
+                        Enter the campaign, participate in the lucky draw and discover your prize. Experience an instant, provably fair celebration with flagship tech rewards.
+                    </p>
+
+                    <div class="hero-actions">
+                        <a href="#participate" class="btn-primary">
+                            <span>ENTER NOW</span>
+                            <span>⚡</span>
+                        </a>
+                        <a href="#howItWorks" class="btn-secondary">
+                            <span>HOW IT WORKS</span>
+                            <span>↓</span>
+                        </a>
+                    </div>
+
+                    <div class="hero-trust-bar">
+                        <div class="trust-item">
+                            <span class="trust-icon">✓</span>
+                            <span>100% Free Entry</span>
+                        </div>
+                        <div class="trust-item">
+                            <span class="trust-icon">✓</span>
+                            <span>Instant Prize Verification</span>
+                        </div>
+                        <div class="trust-item">
+                            <span class="trust-icon">✓</span>
+                            <span>Official Global Rewards</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Original 3D Floating Prize Showcase Visual -->
+                <div class="hero-visual-stage">
+                    <div class="visual-ambient-ring"></div>
+                    <div class="visual-orbit-ring"></div>
+
+                    <!-- Main Centerpiece -->
+                    <div class="floating-centerpiece">
+                        <div class="centerpiece-icon">🏆</div>
+                        <div class="centerpiece-tier">GRAND REWARD</div>
+                        <div class="centerpiece-title">Ultra Tech Suite</div>
+                    </div>
+
+                    <!-- Orbiting Satellites -->
+                    <div class="satellite-card sat-top-left">
+                        <div class="sat-icon">🎧</div>
+                        <div>
+                            <div class="sat-label">Premium Gift</div>
+                            <div class="sat-name">Studio Acoustic Pro</div>
+                        </div>
+                    </div>
+
+                    <div class="satellite-card sat-top-right">
+                        <div class="sat-icon">⌚</div>
+                        <div>
+                            <div class="sat-label">Special Gift</div>
+                            <div class="sat-name">Neo Watch Pro</div>
+                        </div>
+                    </div>
+
+                    <div class="satellite-card sat-bottom-right">
+                        <div class="sat-icon">🎁</div>
+                        <div>
+                            <div class="sat-label">Surprise Gift</div>
+                            <div class="sat-name">$250 Digital Pass</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. COUNTDOWN TIMER SECTION -->
+        <section class="countdown-section">
+            <div class="container">
+                <div class="countdown-box">
+                    <div class="countdown-info">
+                        <div class="countdown-label">Campaign Deadline</div>
+                        <h3 class="countdown-heading">LUCKY DRAW ENDS IN</h3>
+                        <div id="campaignStatusBadge" class="countdown-status-badge">
+                            <span class="status-dot"></span> LIVE CAMPAIGN
+                        </div>
+                    </div>
+
+                    <div class="countdown-timer-grid">
+                        <div class="timer-slot">
+                            <div class="timer-card">
+                                <span id="cdDays" class="timer-number">07</span>
+                            </div>
+                            <span class="timer-unit">Days</span>
+                        </div>
+
+                        <div class="timer-separator">:</div>
+
+                        <div class="timer-slot">
+                            <div class="timer-card">
+                                <span id="cdHours" class="timer-number">18</span>
+                            </div>
+                            <span class="timer-unit">Hours</span>
+                        </div>
+
+                        <div class="timer-separator">:</div>
+
+                        <div class="timer-slot">
+                            <div class="timer-card">
+                                <span id="cdMinutes" class="timer-number">45</span>
+                            </div>
+                            <span class="timer-unit">Minutes</span>
+                        </div>
+
+                        <div class="timer-separator">:</div>
+
+                        <div class="timer-slot">
+                            <div class="timer-card">
+                                <span id="cdSeconds" class="timer-number">30</span>
+                            </div>
+                            <span class="timer-unit">Seconds</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. HOW IT WORKS -->
+        <section id="howItWorks" class="how-it-works-section">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-tag">User Journey</div>
+                    <h2 class="section-title">HOW IT WORKS</h2>
+                    <p class="section-subtitle">Three effortless steps between you and incredible prizes. No purchase necessary.</p>
+                </div>
+
+                <div class="steps-grid">
+                    <!-- STEP 01 -->
+                    <div class="step-card">
+                        <div class="step-header">
+                            <span class="step-number">STEP 01</span>
+                            <div class="step-icon-wrap">📝</div>
+                        </div>
+                        <h3 class="step-title">ENTER</h3>
+                        <p class="step-desc">Fill in your details and join the campaign. Verify your contact information to receive your official lucky draw entry ticket.</p>
+                    </div>
+
+                    <!-- STEP 02 -->
+                    <div class="step-card">
+                        <div class="step-header">
+                            <span class="step-number">STEP 02</span>
+                            <div class="step-icon-wrap">🎡</div>
+                        </div>
+                        <h3 class="step-title">PLAY</h3>
+                        <p class="step-desc">Take part in the lucky draw. Trigger the interactive prize wheel and watch the realistic physics unfold with thrilling suspense.</p>
+                    </div>
+
+                    <!-- STEP 03 -->
+                    <div class="step-card">
+                        <div class="step-header">
+                            <span class="step-number">STEP 03</span>
+                            <div class="step-icon-wrap">🎉</div>
+                        </div>
+                        <h3 class="step-title">WIN</h3>
+                        <p class="step-desc">Discover whether you have won a prize. Claim instant digital voucher codes or physical prize dispatch details immediately.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. PARTICIPATION SECTION -->
+        <section id="participate" class="participate-section">
+            <div class="container form-layout">
+                <div class="form-card">
+                    <div class="form-badge">⚡ Instant Entry Pass</div>
+                    <h2 class="form-header-title">Ready to Try Your Luck?</h2>
+                    <p class="form-header-desc">Complete the short verification form below to unlock your lucky draw attempt.</p>
+
+                    <div id="formAlert" class="form-alert" role="alert"></div>
+
+                    <form id="participationForm" novalidate>
+                        <div class="form-group">
+                            <label for="fullName" class="field-label">Full Name <span class="required-star">*</span></label>
+                            <input type="text" id="fullName" class="input-field" placeholder="e.g. Alex Morgan" required autocomplete="name">
+                            <div class="field-error"></div>
+                        </div>
+
+                        <div class="form-grid-two">
+                            <div class="form-group">
+                                <label for="mobileNumber" class="field-label">Mobile Number <span class="required-star">*</span></label>
+                                <input type="tel" id="mobileNumber" class="input-field" placeholder="10-digit mobile number" required autocomplete="tel">
+                                <div class="field-error"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="emailAddress" class="field-label">Email Address <span class="required-star">*</span></label>
+                                <input type="email" id="emailAddress" class="input-field" placeholder="name@example.com" required autocomplete="email">
+                                <div class="field-error"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-grid-two">
+                            <div class="form-group">
+                                <label for="city" class="field-label">City <span class="optional-tag">(Optional)</span></label>
+                                <input type="text" id="city" class="input-field" placeholder="e.g. San Francisco or Mumbai" autocomplete="address-level2">
+                                <div class="field-error"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="couponCode" class="field-label">Coupon / Entry Code <span class="optional-tag">(Optional)</span></label>
+                                <input type="text" id="couponCode" class="input-field" placeholder="e.g. AURA2026">
+                                <div class="field-error"></div>
+                            </div>
+                        </div>
+
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" id="termsAgreement" class="checkbox-custom" required>
+                            <label for="termsAgreement" class="checkbox-label">
+                                I agree to the <a href="#terms" target="_self">Terms &amp; Conditions</a> and <a href="#terms" target="_self">Privacy Policy</a>.
+                            </label>
+                        </div>
+
+                        <button type="submit" id="submitBtn" class="btn-primary btn-form-submit">
+                            <span>PARTICIPATE NOW</span>
+                            <span>⚡</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. LUCKY DRAW GAME (CIRCULAR FUTURISTIC WHEEL) -->
+        <section id="drawGame" class="game-section">
+            <div class="container game-stage-wrapper">
+                <div class="section-header">
+                    <div class="section-tag">Interactive Mechanism</div>
+                    <h2 class="section-title">THE LUCKY DRAW</h2>
+                    <p class="section-subtitle">A high-precision circular prize machine. Spin to reveal your destiny.</p>
+                </div>
+
+                <!-- Participant status banner -->
+                <div class="game-status-bar">
+                    <div id="participantBadge" class="game-participant-badge">
+                        <span>● Verified Entry:</span>
+                        <strong id="participantNameDisplay">Guest</strong>
+                        <span id="ticketNumberDisplay" class="badge-ticket-tag">#TKT-0000</span>
+                    </div>
+                    <div id="drawHubStatus" class="game-attempts-status">READY TO DRAW</div>
+                </div>
+
+                <!-- Circular Futuristic Wheel Unit -->
+                <div class="wheel-chassis-container">
+                    <div class="wheel-ambient-glow"></div>
+                    
+                    <!-- Canvas rendering the segments and perimeter pegs -->
+                    <canvas id="luckyWheelCanvas"></canvas>
+
+                    <!-- Center Hub Button -->
+                    <div class="center-draw-hub">
+                        <button id="drawNowBtn" class="btn-draw-now" type="button" aria-label="Draw Now">
+                            <span>DRAW</span>
+                            <span>NOW</span>
+                            <span class="hub-subtext">TAP TO SPIN</span>
+                        </button>
+                    </div>
+                </div>
+
+                <p id="gameNotice" class="game-instructions-notice">
+                    Enter your details in the form above to unlock your lucky draw attempt.
+                </p>
+            </div>
+        </section>
+
+        <!-- 7. PRIZES SECTION ("WHAT CAN YOU WIN?") -->
+        <section id="prizes" class="prizes-section">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-tag">Reward Pool</div>
+                    <h2 class="section-title">WHAT CAN YOU WIN?</h2>
+                    <p class="section-subtitle">Explore this season's curated luxury tech lineup and instant redeemable passes.</p>
+                </div>
+
+                <div id="prizesGrid" class="prizes-grid">
+                    <!-- Dynamically populated from PRIZE_CONFIG -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. CAMPAIGN HIGHLIGHT -->
+        <section class="highlight-section">
+            <div class="container highlight-grid">
+                <div class="highlight-visual">
+                    <div class="vault-graphic-box">🛡️</div>
+                    <div class="vault-badge">100% PROVABLY FAIR</div>
+                    <h3 style="margin-top:1.2rem; font-size:1.6rem;">Cryptographic Fairness</h3>
+                    <p style="color:var(--text-secondary); font-size:0.95rem; margin-top:0.5rem;">
+                        Every outcome is determined via verifiable deterministic seeds and strict atomic allocation logic.
+                    </p>
+                </div>
+
+                <div class="highlight-text-col">
+                    <div class="section-tag">Transparency &amp; Trust</div>
+                    <h2 class="highlight-title">ONE ENTRY. ONE CHANCE. ONE AMAZING SURPRISE.</h2>
+                    <p class="highlight-desc">
+                        Our 2026 Lucky Draw Campaign is designed to give every verified participant an equitable and exciting experience. Whether you win the flagship tech suite or gain exclusive grand finale entry, everyone steps away with value.
+                    </p>
+
+                    <div class="pillars-list">
+                        <div class="pillar-item">
+                            <div class="pillar-bullet">✓</div>
+                            <div>
+                                <div class="pillar-title">Zero Entry Fees</div>
+                                <div class="pillar-text">Participation is completely free of charge. No payment details or deposits required.</div>
+                            </div>
+                        </div>
+
+                        <div class="pillar-item">
+                            <div class="pillar-bullet">✓</div>
+                            <div>
+                                <div class="pillar-title">Instant Digital Verification</div>
+                                <div class="pillar-text">Your prize claim codes are issued immediately upon completing the draw.</div>
+                            </div>
+                        </div>
+
+                        <div class="pillar-item">
+                            <div class="pillar-bullet">✓</div>
+                            <div>
+                                <div class="pillar-title">Global White-Glove Dispatch</div>
+                                <div class="pillar-text">Physical grand and premium prizes are delivered directly to winners with insured shipping.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. WINNER ANNOUNCEMENT -->
+        <section id="winners" class="winners-section">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-tag">Hall of Champions</div>
+                    <h2 class="section-title">WINNERS</h2>
+                    <p class="section-subtitle">Real-time feed of participants who have tried their luck and claimed rewards.</p>
+                </div>
+
+                <div id="winnersGrid" class="winners-grid">
+                    <!-- Populated dynamically via RECENT_WINNERS_DATA -->
+                </div>
+
+                <div id="winnersFallback" class="winners-fallback-banner">
+                    <div class="fallback-icon">⏳</div>
+                    <h3 class="fallback-title">Winners will be announced soon.</h3>
+                    <p class="fallback-desc">The draw is currently ongoing. Stay tuned for the upcoming announcement roll.</p>
+                </div>
+
+                <div class="winners-action-row">
+                    <button id="btnToggleWinnersState" class="btn-toggle-state" type="button">
+                        Simulate Empty / Pre-Draw State
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 11. TERMS & CONDITIONS (ACCORDION) -->
+        <section id="terms" class="terms-section">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-tag">Compliance &amp; Guidelines</div>
+                    <h2 class="section-title">TERMS &amp; CONDITIONS</h2>
+                    <p class="section-subtitle">Please read the official rules governing eligibility, participation, and prize fulfillment.</p>
+                </div>
+
+                <div class="accordion-container">
+                    <!-- Eligibility -->
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" type="button" aria-expanded="false">
+                            <span>1. Eligibility</span>
+                            <span class="accordion-icon">▼</span>
+                        </button>
+                        <div class="accordion-body">
+                            <div class="accordion-content">
+                                <p>Participation in the AURA 2026 Lucky Draw Campaign is open to individuals aged 18 years or older at the time of entry. Employees, affiliates, and direct family members of the organizing entity are not eligible to claim major tiered prizes.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- How to Participate -->
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" type="button" aria-expanded="false">
+                            <span>2. How to Participate</span>
+                            <span class="accordion-icon">▼</span>
+                        </button>
+                        <div class="accordion-body">
+                            <div class="accordion-content">
+                                <p>To participate, eligible entrants must accurately complete the official registration form with their full name, verified 10-digit mobile number, and email address. Each participant receives a unique ticket ID granting one (1) interactive lucky draw turn.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lucky Draw Rules -->
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" type="button" aria-expanded="false">
+                            <span>3. Lucky Draw Rules</span>
+                            <span class="accordion-icon">▼</span>
+                        </button>
+                        <div class="accordion-body">
+                            <div class="accordion-content">
+                                <p>Each participant is entitled to exactly one spin of the official prize wheel per registered contact number and email. Any attempts to manipulate participation through automated bots, spoofed emails, or scripts will result in immediate disqualification.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Prize Distribution -->
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" type="button" aria-expanded="false">
+                            <span>4. Prize Distribution</span>
+                            <span class="accordion-icon">▼</span>
+                        </button>
+                        <div class="accordion-body">
+                            <div class="accordion-content">
+                                <p>Prizes are distributed strictly as announced. Physical items (Grand Prize, Premium Gift, Special Gift) will be dispatched within 14 business days following successful identity verification. Digital vouchers are delivered instantaneously upon redemption.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Winner Selection -->
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" type="button" aria-expanded="false">
+                            <span>5. Winner Selection</span>
+                            <span class="accordion-icon">▼</span>
+                        </button>
+                        <div class="accordion-body">
+                            <div class="accordion-content">
+                                <p>Winners are determined through an automated, cryptographically secure pseudo-random algorithm based on pre-defined probability weightings. The result rendered upon the conclusion of the wheel rotation is final and binding.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Claiming the Prize -->
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" type="button" aria-expanded="false">
+                            <span>6. Claiming the Prize</span>
+                            <span class="accordion-icon">▼</span>
+                        </button>
+                        <div class="accordion-body">
+                            <div class="accordion-content">
+                                <p>Winners must claim their prize within 30 days of the draw date by submitting their unique claim voucher code and government-issued ID. Unclaimed rewards will be reallocated to the Grand Finale community raffle pool.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Disqualification -->
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" type="button" aria-expanded="false">
+                            <span>7. Disqualification</span>
+                            <span class="accordion-icon">▼</span>
+                        </button>
+                        <div class="accordion-body">
+                            <div class="accordion-content">
+                                <p>The organizer reserves the right to void entries and withhold prizes if an entrant provides false or misleading information, violates terms of service, or attempts to circumvent draw rate limits.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Privacy -->
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" type="button" aria-expanded="false">
+                            <span>8. Privacy &amp; Data Security</span>
+                            <span class="accordion-icon">▼</span>
+                        </button>
+                        <div class="accordion-body">
+                            <div class="accordion-content">
+                                <p>Participant personal information is collected solely for the administration of this campaign, winner notification, and prize fulfillment. Your data is encrypted and never sold or shared with unauthorized third-party advertisers.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- General Terms -->
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" type="button" aria-expanded="false">
+                            <span>9. General Terms</span>
+                            <span class="accordion-icon">▼</span>
+                        </button>
+                        <div class="accordion-body">
+                            <div class="accordion-content">
+                                <p>The organizers reserve the right to amend, suspend, or terminate the campaign at any time due to unforeseen technical difficulties or force majeure events. All applicable local taxes and duties on prizes are the sole responsibility of the winner.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 12. FAQ SECTION (ACCORDION) -->
+        <section id="faqs" class="faq-section">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-tag">Got Questions?</div>
+                    <h2 class="section-title">FREQUENTLY ASKED QUESTIONS</h2>
+                    <p class="section-subtitle">Find quick answers to common questions about the lucky draw campaign.</p>
+                </div>
+
+                <div class="accordion-container">
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" type="button" aria-expanded="false">
+                            <span>Who can participate?</span>
+                            <span class="accordion-icon">▼</span>
+                        </button>
+                        <div class="accordion-body">
+                            <div class="accordion-content">
+                                <p>Anyone aged 18 years or older with a valid mobile number and email address can participate. There is zero purchase required to enter.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" type="button" aria-expanded="false">
+                            <span>How do I enter the lucky draw?</span>
+                            <span class="accordion-icon">▼</span>
+                        </button>
+                        <div class="accordion-body">
+                            <div class="accordion-content">
+                                <p>Simply scroll to the "Ready to Try Your Luck?" section, fill out your full name, mobile number, and email, accept the terms, and click "PARTICIPATE NOW". You will be immediately taken to the lucky draw wheel with an active ticket.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" type="button" aria-expanded="false">
+                            <span>How is the winner selected?</span>
+                            <span class="accordion-icon">▼</span>
+                        </button>
+                        <div class="accordion-body">
+                            <div class="accordion-content">
+                                <p>Winners are chosen through a weighted pseudo-random physics simulation engine. The mechanism ensures full transparency, with probabilities pre-configured for each prize tier.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" type="button" aria-expanded="false">
+                            <span>Can I participate more than once?</span>
+                            <span class="accordion-icon">▼</span>
+                        </button>
+                        <div class="accordion-body">
+                            <div class="accordion-content">
+                                <p>To ensure fairness for all entrants, only one entry per verified mobile number and email address is allowed during this campaign cycle.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" type="button" aria-expanded="false">
+                            <span>How will I know if I win?</span>
+                            <span class="accordion-icon">▼</span>
+                        </button>
+                        <div class="accordion-body">
+                            <div class="accordion-content">
+                                <p>The result appears immediately on your screen upon completion of the wheel spin in an animated celebration modal. You will also receive an official email confirmation containing your claim voucher code.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" type="button" aria-expanded="false">
+                            <span>How can I claim my prize?</span>
+                            <span class="accordion-icon">▼</span>
+                        </button>
+                        <div class="accordion-body">
+                            <div class="accordion-content">
+                                <p>When the winning screen appears, click "CLAIM YOUR PRIZE" to display your unique claim voucher. You can copy the code and follow the simple on-screen instructions or present it to our support concierge.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" type="button" aria-expanded="false">
+                            <span>When will winners be announced?</span>
+                            <span class="accordion-icon">▼</span>
+                        </button>
+                        <div class="accordion-body">
+                            <div class="accordion-content">
+                                <p>Instant winners are notified on the spot! Full consolidated lists of major prize recipients are continuously updated on our live Winners section throughout the campaign.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 6. RESULT SCREEN MODAL (WINNER & NON-WINNER) -->
+    <div id="resultModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalPrizeTitle">
+        <div id="resultModalBackdrop" class="modal-backdrop"></div>
+        
+        <div class="modal-dialog">
+            <button id="closeModalBtn" class="modal-close-btn" type="button" aria-label="Close Modal">✕</button>
+
+            <!-- WINNER STATE -->
+            <div id="modalWinnerState">
+                <h3 class="winner-badge-header">CONGRATULATIONS! 🎉</h3>
+                <div class="winner-sub-eyebrow">YOU WON</div>
+
+                <div class="prize-showcase-circle">
+                    <span id="modalPrizeIcon">🏆</span>
+                </div>
+
+                <div id="modalPrizeBadge" class="prize-tier-badge">Grand Prize</div>
+                <h2 id="modalPrizeTitle" class="modal-prize-title">Ultra Tech Suite</h2>
+                <p id="modalPrizeDesc" class="modal-prize-desc">
+                    You've won the Premium Gift! Experience high-fidelity audio and titanium construction.
+                </p>
+
+                <div class="claim-code-preview">
+                    <span class="code-label">Claim Voucher Code:</span>
+                    <span id="modalClaimCode" class="code-value">WIN-8849-GRAND</span>
+                </div>
+
+                <div class="modal-button-group">
+                    <button id="btnClaimPrize" class="btn-primary" type="button">
+                        <span>CLAIM YOUR PRIZE</span>
+                        <span>🎁</span>
+                    </button>
+                    <button id="btnBackHome" class="btn-secondary" type="button">
+                        <span>BACK TO HOME</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- NON-WINNER STATE -->
+            <div id="modalNonWinnerState" style="display: none;">
+                <div class="non-winner-icon">✨</div>
+                <h2 class="non-winner-title">BETTER LUCK NEXT TIME!</h2>
+                <p class="non-winner-message">
+                    Thank you for participating. Keep an eye out for our next exciting campaign. Your entry ticket has been entered into the Grand Finale community raffle!
+                </p>
+                <div class="modal-button-group">
+                    <button id="btnNonWinnerHome" class="btn-primary" type="button">
+                        <span>BACK TO HOME</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CLAIM VOUCHER MODAL DIALOG -->
+    <div id="claimModal" class="modal-overlay" role="dialog" aria-modal="true">
+        <div class="modal-backdrop" onclick="document.getElementById('claimModal').classList.remove('active')"></div>
+        <div class="modal-dialog">
+            <button id="btnCloseClaimModal" class="modal-close-btn" type="button" aria-label="Close">✕</button>
+            
+            <div style="font-size:2.5rem; margin-bottom:0.5rem;">🎉</div>
+            <h2 style="font-size:1.8rem; margin-bottom:0.5rem; color:#FFFFFF;">Prize Claim Pass</h2>
+            <p style="color:var(--text-secondary); font-size:0.9rem; margin-bottom:1.5rem;">
+                Present or save this digital voucher to verify and dispatch your prize.
+            </p>
+
+            <div class="claim-voucher-card">
+                <div class="voucher-row">
+                    <span class="v-label">Voucher Code:</span>
+                    <span id="claimVoucherCode" class="v-val text-gradient-gold">WIN-9921-VIP</span>
+                </div>
+                <div class="voucher-row">
+                    <span class="v-label">Participant:</span>
+                    <span id="claimParticipantName" class="v-val">Alex Morgan</span>
+                </div>
+                <div class="voucher-row">
+                    <span class="v-label">Prize Allotted:</span>
+                    <span id="claimPrizeName" class="v-val">Studio Acoustic Pro</span>
+                </div>
+                <div class="voucher-row">
+                    <span class="v-label">Status:</span>
+                    <span class="v-val" style="color:var(--emerald);">● Verified &amp; Reserved</span>
+                </div>
+            </div>
+
+            <div class="modal-button-group">
+                <button id="btnCopyClaimCode" class="btn-primary" type="button">
+                    <span>COPY CLAIM CODE</span>
+                    <span>📋</span>
+                </button>
+                <button class="btn-secondary" type="button" onclick="window.print()">
+                    <span>PRINT VOUCHER</span>
+                    <span>🖨️</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 14. FOOTER -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <a href="#" class="brand-logo" style="margin-bottom: 0.5rem;">
+                        <span class="brand-mark">✦</span>
+                        <span class="brand-text">AURA <span class="brand-year">2026</span></span>
+                    </a>
+                    <p class="footer-brand-desc">
+                        A modern, interactive and provably fair promotional lucky draw campaign platform. Enter, play, and discover next-generation rewards.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="footer-heading">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#hero">Home</a></li>
+                        <li><a href="#howItWorks">How It Works</a></li>
+                        <li><a href="#participate">Participate Now</a></li>
+                        <li><a href="#drawGame">The Lucky Draw</a></li>
+                        <li><a href="#prizes">Prize Catalog</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer-heading">Legal &amp; Rules</h4>
+                    <ul class="footer-links">
+                        <li><a href="#terms">Terms &amp; Conditions</a></li>
+                        <li><a href="#terms">Privacy Policy</a></li>
+                        <li><a href="#faqs">Frequently Asked Questions</a></li>
+                        <li><a href="#winners">Winners Roster</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer-heading">Contact Concierge</h4>
+                    <ul class="footer-links" style="margin-bottom: 1.2rem;">
+                        <li><a href="mailto:support@auradraw2026.com">support@auradraw2026.com</a></li>
+                        <li><a href="tel:18005552872">+1 (800) 555-AURA</a></li>
+                    </ul>
+                    <div class="footer-social-row">
+                        <a href="#" class="social-pill" aria-label="Twitter">𝕏</a>
+                        <a href="#" class="social-pill" aria-label="Instagram">📸</a>
+                        <a href="#" class="social-pill" aria-label="YouTube">▶</a>
+                        <a href="#" class="social-pill" aria-label="Discord">💬</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div>© 2026 AURA Campaign. All Rights Reserved.</div>
+                <div>Concept &amp; Mechanics: Enter → Play → Win</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- DEMO / TEST CONTROLS DRAWER (For testing & review) -->
+    <button id="btnToggleDemo" class="demo-toggle-pill" type="button" title="Test &amp; Preview Controls">
+        <span>⚡</span>
+        <span>Test Controls</span>
+    </button>
+
+    <aside id="demoDrawer" class="demo-drawer" aria-label="Demo Tester Controls">
+        <div class="demo-header">
+            <span class="demo-title">⚡ Developer / Tester Suite</span>
+            <button id="btnCloseDemo" class="demo-close-btn" type="button">✕</button>
+        </div>
+
+        <div class="demo-subtitle">Force Draw Outcome</div>
+        <div class="demo-buttons-grid">
+            <button class="btn-demo-action" data-force-prize="grand_prize">🏆 Force Grand Prize</button>
+            <button class="btn-demo-action" data-force-prize="premium_gift">🎧 Force Premium Gift</button>
+            <button class="btn-demo-action" data-force-prize="special_gift">⌚ Force Special Gift</button>
+            <button class="btn-demo-action" data-force-prize="surprise_gift">🎁 Force Surprise Gift</button>
+            <button class="btn-demo-action" data-force-prize="better_luck_1">✨ Force Non-Winner Outcome</button>
+        </div>
+
+        <div class="demo-subtitle">Simulations</div>
+        <div class="demo-buttons-grid">
+            <button id="btnTestConfetti" class="btn-demo-action">🎉 Trigger Confetti &amp; Fanfare</button>
+            <button id="btnResetParticipant" class="btn-demo-action">🔄 Reset Registration &amp; Spin State</button>
+            <button id="btnToggleCampaignClosed" class="btn-demo-action">⏱️ Toggle Campaign Closed</button>
+        </div>
+    </aside>
+
+    <!-- Application JavaScript Modules -->
+    <script src="assets/js/prizes-config.js"></script>
+    <script src="assets/js/audio-synth.js"></script>
+    <script src="assets/js/confetti-engine.js"></script>
+    <script src="assets/js/lucky-wheel.js"></script>
+    <script src="assets/js/app.js"></script>
+</body>
+</html>

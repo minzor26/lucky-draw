@@ -1,0 +1,5 @@
+# Dependencies & Temporary Files
+Mobile-Gallery-Lucky-Draw.zip
+*.sqlite
+.DS_Store
+Thumbs.db
