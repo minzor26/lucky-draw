@@ -34,8 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
         participationForm: document.getElementById('participationForm'),
         fullNameInput: document.getElementById('fullName'),
         mobileInput: document.getElementById('mobileNumber'),
-        emailInput: document.getElementById('emailAddress'),
-        cityInput: document.getElementById('city'),
         couponInput: document.getElementById('couponCode'),
         termsCheckbox: document.getElementById('termsAgreement'),
         submitBtn: document.getElementById('submitBtn'),
@@ -284,8 +282,6 @@ document.addEventListener('DOMContentLoaded', () => {
             // Read Inputs
             const name = elements.fullNameInput.value.trim();
             const mobile = elements.mobileInput.value.trim();
-            const email = elements.emailInput.value.trim();
-            const city = elements.cityInput ? elements.cityInput.value.trim() : '';
             const coupon = elements.couponInput ? elements.couponInput.value.trim().toUpperCase() : '';
             const termsAgreed = elements.termsCheckbox.checked;
 
@@ -305,13 +301,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const cleanMobile = mobile.replace(/[^0-9]/g, '');
             if (!cleanMobile || cleanMobile.length < 10) {
                 setInputError(elements.mobileInput, 'Please enter a valid 10-digit mobile number.');
-                hasError = true;
-            }
-
-            // Email Validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!email || !emailRegex.test(email)) {
-                setInputError(elements.emailInput, 'Please enter a valid email address.');
                 hasError = true;
             }
 
@@ -340,8 +329,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const participantData = {
                 fullName: name,
                 mobile: cleanMobile,
-                email: email,
-                city: city || 'Global',
                 coupon: coupon,
                 ticketId: ticketId,
                 registeredAt: new Date().toISOString()
@@ -728,8 +715,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     state.participant = {
                         fullName: "Tester VIP",
                         mobile: "9988776655",
-                        email: "tester@auradraw2026.com",
-                        city: "Silicon Valley",
                         ticketId: "DEMO-9999",
                         registeredAt: new Date().toISOString()
                     };

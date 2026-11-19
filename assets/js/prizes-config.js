@@ -10,7 +10,7 @@ const CAMPAIGN_CONFIG = {
     campaignTitle: "Global Lucky Draw Campaign",
     // Campaign end date for countdown (set to 7 days from now by default)
     endDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
-    // Allow participation only once per verified phone/email
+    // Allow participation only once per verified mobile number
     singleEntryPerUser: true,
     // Whether entry code is mandatory (false = optional)
     requireEntryCode: false,
