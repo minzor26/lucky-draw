@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURA 2026 — Admin Leads &amp; Lucky Draw Portal</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-base: #060813;
+            --bg-surface: #0E1326;
+            --bg-card: rgba(16, 22, 45, 0.85);
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --border-highlight: rgba(0, 242, 254, 0.35);
+            --gold: #FFB800;
+            --cyan: #00F2FE;
+            --purple: #B537F2;
+            --emerald: #00F5A0;
+            --coral: #FF7675;
+            --text-primary: #FFFFFF;
+            --text-secondary: #94A3B8;
+            --text-muted: #64748B;
+            --font-heading: 'Outfit', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            --font-mono: 'Space Grotesk', monospace;
+            --radius-md: 12px;
+            --radius-lg: 18px;
+            --radius-full: 9999px;
+            --transition: all 0.25s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: radial-gradient(circle at 50% 0%, #111A38 0%, #060813 70%);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            min-height: 100vh;
+            padding-bottom: 60px;
+        }
+
+        /* Top Navbar */
+        .admin-nav {
+            background: rgba(8, 12, 28, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-subtle);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand-box {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .brand-badge {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--purple) 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: #000;
+            font-size: 1.1rem;
+        }
+
+        .brand-title {
+            font-family: var(--font-heading);
+            font-size: 1.35rem;
+            font-weight: 800;
+        }
+
+        .brand-tag {
+            font-size: 0.75rem;
+            color: var(--cyan);
+            background: rgba(0, 242, 254, 0.1);
+            padding: 0.2rem 0.5rem;
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            border: 1px solid var(--border-highlight);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.6rem 1.2rem;
+            border-radius: var(--radius-full);
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            transition: var(--transition);
+            border: none;
+        }
+
+        .btn-outline {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: var(--cyan);
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold) 0%, #FF8A00 100%);
+            color: #060813;
+            box-shadow: 0 4px 15px rgba(255, 184, 0, 0.3);
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 184, 0, 0.5);
+        }
+
+        .btn-cyan {
+            background: linear-gradient(135deg, var(--cyan) 0%, #4FACFE 100%);
+            color: #060813;
+        }
+
+        .btn-cyan:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 242, 254, 0.4);
+        }
+
+        /* Container */
+        .main-container {
+            max-width: 1300px;
+            margin: 2.5rem auto 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .stat-icon {
+            position: absolute;
+            top: 1.2rem;
+            right: 1.2rem;
+            font-size: 1.8rem;
+            opacity: 0.8;
+        }
+
+        /* Leads Controls Bar */
+        .table-controls-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            position: relative;
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .search-input {
+            width: 100%;
+            background: rgba(6, 8, 19, 0.75);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-full);
+            padding: 0.75rem 1.2rem 0.75rem 2.8rem;
+            color: #FFFFFF;
+            font-size: 0.95rem;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
+            border-color: var(--cyan);
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1.1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        /* Table Wrapper */
+        .table-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th {
+            background: rgba(6, 8, 19, 0.6);
+            padding: 1.1rem 1.4rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            font-weight: 700;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        td {
+            padding: 1.1rem 1.4rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+            color: #FFFFFF;
+        }
+
+        .customer-name {
+            font-weight: 700;
+            color: #FFFFFF;
+        }
+
+        .phone-cell {
+            font-family: var(--font-mono);
+            color: var(--cyan);
+            font-weight: 600;
+        }
+
+        .ticket-badge {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--border-subtle);
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: #FFFFFF;
+        }
+
+        .prize-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.3rem 0.75rem;
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .prize-badge.tier-grand {
+            background: rgba(255, 184, 0, 0.15);
+            border: 1px solid var(--gold);
+            color: var(--gold);
+        }
+
+        .prize-badge.tier-premium {
+            background: rgba(0, 242, 254, 0.15);
+            border: 1px solid var(--cyan);
+            color: var(--cyan);
+        }
+
+        .prize-badge.tier-special {
+            background: rgba(181, 55, 242, 0.15);
+            border: 1px solid var(--purple);
+            color: var(--purple);
+        }
+
+        .prize-badge.tier-reward {
+            background: rgba(255, 118, 117, 0.15);
+            border: 1px solid var(--coral);
+            color: var(--coral);
+        }
+
+        .prize-badge.tier-surprise {
+            background: rgba(0, 245, 160, 0.15);
+            border: 1px solid var(--emerald);
+            color: var(--emerald);
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.25rem 0.65rem;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-pill.won {
+            background: rgba(0, 245, 160, 0.1);
+            color: var(--emerald);
+        }
+
+        .status-pill.registered {
+            background: rgba(255, 184, 0, 0.1);
+            color: var(--gold);
+        }
+
+        .claim-code {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .empty-leads-notice {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 1024px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+            .table-controls-card {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="admin-nav">
+        <div class="nav-container">
+            <div class="brand-box">
+                <div class="brand-badge">✦</div>
+                <div>
+                    <h1 class="brand-title">AURA 2026</h1>
+                </div>
+                <span class="brand-tag">Admin Leads Portal</span>
+            </div>
+
+            <div class="nav-actions">
+                <a href="/" class="btn btn-outline">← Back to Live Draw</a>
+                <button id="btnRefresh" class="btn btn-outline">🔄 Refresh</button>
+                <a href="/api/admin/export-csv" class="btn btn-gold">📥 Export CSV</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <!-- Top Metrics Grid -->
+        <section class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Total Leads Captured</div>
+                <div id="statTotalLeads" class="stat-value">0</div>
+                <div class="stat-icon">👥</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Prizes Claimed</div>
+                <div id="statTotalWinners" class="stat-value">0</div>
+                <div class="stat-icon">🏆</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Assured Daily Gifts</div>
+                <div id="statDailyGifts" class="stat-value">0</div>
+                <div class="stat-icon">🎁</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Database Connection</div>
+                <div class="stat-value" style="font-size: 1.3rem; color: var(--emerald); display: flex; align-items: center; gap: 0.5rem; margin-top: 0.6rem;">
+                    <span>●</span> <span>SQLite Ready</span>
+                </div>
+                <div class="stat-icon">💾</div>
+            </div>
+        </section>
+
+        <!-- Search & Filter Controls Bar -->
+        <section class="table-controls-card">
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="searchInput" class="search-input" placeholder="Search by name, mobile, ticket ID, or prize...">
+            </div>
+
+            <div style="display: flex; gap: 0.8rem; align-items: center;">
+                <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">Status:</span>
+                <select id="statusFilter" class="search-input" style="padding: 0.6rem 1.2rem; width: auto;">
+                    <option value="all">All Leads</option>
+                    <option value="won">Prize Won</option>
+                    <option value="registered">Registered (Pending Spin)</option>
+                </select>
+            </div>
+        </section>
+
+        <!-- Leads Table -->
+        <section class="table-card">
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Ticket / ID</th>
+                            <th>Customer Name</th>
+                            <th>Mobile Number</th>
+                            <th>Coupon</th>
+                            <th>Prize Won</th>
+                            <th>Claim Voucher</th>
+                            <th>Status</th>
+                            <th>Date &amp; Time</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leadsTableBody">
+                        <tr>
+                            <td colspan="8" class="empty-leads-notice">
+                                Loading leads from SQLite database...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        let allLeads = [];
+
+        async function fetchLeads() {
+            try {
+                const res = await fetch('/api/admin/leads');
+                const data = await res.json();
+                if (data.success && Array.isArray(data.leads)) {
+                    allLeads = data.leads;
+                    renderLeads(allLeads);
+                    updateStats(allLeads);
+                } else {
+                    showFallbackNotice('No database records found yet.');
+                }
+            } catch (err) {
+                console.warn('API error, falling back to localStorage / demo cache:', err);
+                loadLocalFallback();
+            }
+        }
+
+        function loadLocalFallback() {
+            const localParticipant = JSON.parse(localStorage.getItem('aura_participant') || 'null');
+            const lastPrize = JSON.parse(localStorage.getItem('aura_last_prize') || 'null');
+            
+            if (localParticipant) {
+                allLeads = [{
+                    id: 1,
+                    fullName: localParticipant.fullName,
+                    mobile: localParticipant.mobile,
+                    couponCode: localParticipant.coupon || '-',
+                    ticketId: localParticipant.ticketId,
+                    prizeWon: lastPrize ? lastPrize.name : 'Earphones / Assured Gift',
+                    prizeTier: lastPrize ? lastPrize.tier : 'reward',
+                    claimCode: 'WIN-' + Math.floor(1000 + Math.random() * 9000),
+                    status: lastPrize ? 'Prize Won' : 'Registered',
+                    createdAt: localParticipant.registeredAt ? localParticipant.registeredAt.replace('T', ' ').substring(0, 19) : 'Just Now'
+                }];
+                renderLeads(allLeads);
+                updateStats(allLeads);
+            } else {
+                showFallbackNotice('No leads submitted yet. Fill the participation form on the main website to see live entries!');
+            }
+        }
+
+        function updateStats(leads) {
+            document.getElementById('statTotalLeads').textContent = leads.length;
+            const winners = leads.filter(l => l.prizeWon && l.prizeWon !== 'Pending Spin');
+            document.getElementById('statTotalWinners').textContent = winners.length;
+            const gifts = leads.filter(l => (l.prizeWon || '').toLowerCase().includes('earphone') || (l.prizeWon || '').toLowerCase().includes('cover') || (l.prizeWon || '').toLowerCase().includes('cable'));
+            document.getElementById('statDailyGifts').textContent = gifts.length || winners.length;
+        }
+
+        function renderLeads(leads) {
+            const tbody = document.getElementById('leadsTableBody');
+            if (!leads || leads.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="8" class="empty-leads-notice">
+                            No matching leads found.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = leads.map(l => {
+                const tier = l.prizeTier || 'reward';
+                const hasWon = l.prizeWon && l.prizeWon !== 'Pending Spin';
+                const prizeBadgeHtml = hasWon 
+                    ? `<span class="prize-badge tier-${tier}">🎁 ${l.prizeWon}</span>`
+                    : `<span style="color:var(--text-muted); font-style:italic;">Pending Spin</span>`;
+
+                const statusPill = hasWon
+                    ? `<span class="status-pill won">● Claimed</span>`
+                    : `<span class="status-pill registered">● Registered</span>`;
+
+                return `
+                    <tr>
+                        <td><span class="ticket-badge">${l.ticketId || ('#' + l.id)}</span></td>
+                        <td><span class="customer-name">${l.fullName || 'Anonymous'}</span></td>
+                        <td><span class="phone-cell">📱 ${l.mobile || '-'}</span></td>
+                        <td>${l.couponCode || '<span style="color:var(--text-muted);">-</span>'}</td>
+                        <td>${prizeBadgeHtml}</td>
+                        <td><span class="claim-code">${l.claimCode || '-'}</span></td>
+                        <td>${statusPill}</td>
+                        <td style="color:var(--text-muted); font-size:0.8rem;">${l.createdAt || '-'}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function showFallbackNotice(msg) {
+            document.getElementById('leadsTableBody').innerHTML = `
+                <tr>
+                    <td colspan="8" class="empty-leads-notice">
+                        ${msg}
+                    </td>
+                </tr>
+            `;
+        }
+
+        // Search Filter
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const q = e.target.value.toLowerCase().trim();
+            const statusFilter = document.getElementById('statusFilter').value;
+            applyFilters(q, statusFilter);
+        });
+
+        document.getElementById('statusFilter').addEventListener('change', (e) => {
+            const q = document.getElementById('searchInput').value.toLowerCase().trim();
+            applyFilters(q, e.target.value);
+        });
+
+        function applyFilters(query, status) {
+            const filtered = allLeads.filter(l => {
+                const matchQuery = !query || 
+                    (l.fullName && l.fullName.toLowerCase().includes(query)) ||
+                    (l.mobile && l.mobile.includes(query)) ||
+                    (l.ticketId && l.ticketId.toLowerCase().includes(query)) ||
+                    (l.prizeWon && l.prizeWon.toLowerCase().includes(query)) ||
+                    (l.couponCode && l.couponCode.toLowerCase().includes(query));
+
+                const hasWon = l.prizeWon && l.prizeWon !== 'Pending Spin';
+                const matchStatus = status === 'all' || 
+                    (status === 'won' && hasWon) ||
+                    (status === 'registered' && !hasWon);
+
+                return matchQuery && matchStatus;
+            });
+            renderLeads(filtered);
+        }
+
+        document.getElementById('btnRefresh').addEventListener('click', () => {
+            fetchLeads();
+        });
+
+        // Initialize on load
+        fetchLeads();
+    </script>
+</body>
+</html>

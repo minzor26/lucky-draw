@@ -234,6 +234,10 @@ class LuckyWheel {
                 segGrad.addColorStop(0, '#052319');
                 segGrad.addColorStop(0.6, '#0A3B2B');
                 segGrad.addColorStop(1, '#0F573E');
+            } else if (prize.tier === 'reward') {
+                segGrad.addColorStop(0, '#261217');
+                segGrad.addColorStop(0.6, '#3D1B24');
+                segGrad.addColorStop(1, '#5C2234');
             } else {
                 segGrad.addColorStop(0, '#131822');
                 segGrad.addColorStop(0.7, '#1C2333');
@@ -382,6 +386,9 @@ class LuckyWheel {
             case 'watch': return '⌚';
             case 'gift': return '🎁';
             case 'tag': return '🎟️';
+            case 'earphones': return '🎵';
+            case 'case': return '📱';
+            case 'cable': return '🔌';
             case 'sparkle': return '✨';
             default: return '💎';
         }

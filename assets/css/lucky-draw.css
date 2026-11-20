@@ -1358,6 +1358,14 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: 0 25px 60px var(--purple-glow);
 }
 
+.prize-card.tier-reward {
+    border-color: rgba(255, 118, 117, 0.35);
+}
+.prize-card.tier-reward:hover {
+    border-color: #FF7675;
+    box-shadow: 0 25px 60px rgba(255, 118, 117, 0.35);
+}
+
 .prize-card-badge {
     align-self: flex-start;
     padding: 0.3rem 0.75rem;
