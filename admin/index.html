@@ -424,7 +424,7 @@
             <div class="nav-actions">
                 <a href="/" class="btn btn-outline">← Back to Live Draw</a>
                 <button id="btnRefresh" class="btn btn-outline">🔄 Refresh</button>
-                <a href="/api/admin/export-csv" class="btn btn-gold">📥 Export CSV</a>
+                <button id="btnExportCsv" class="btn btn-gold">📥 Export CSV</button>
             </div>
         </div>
     </header>
@@ -451,11 +451,11 @@
             </div>
 
             <div class="stat-card">
-                <div class="stat-label">Database Connection</div>
-                <div class="stat-value" style="font-size: 1.3rem; color: var(--emerald); display: flex; align-items: center; gap: 0.5rem; margin-top: 0.6rem;">
-                    <span>●</span> <span>SQLite Ready</span>
+                <div class="stat-label">Cloud Deployment</div>
+                <div class="stat-value" style="font-size: 1.25rem; color: var(--emerald); display: flex; align-items: center; gap: 0.5rem; margin-top: 0.6rem;">
+                    <span>●</span> <span>Vercel &amp; Cloud Ready</span>
                 </div>
-                <div class="stat-icon">💾</div>
+                <div class="stat-icon">☁️</div>
             </div>
         </section>
 
@@ -509,7 +509,10 @@
 
         async function fetchLeads() {
             try {
-                const res = await fetch('/api/admin/leads');
+                let res = await fetch('/api/admin/leads');
+                if (!res.ok) {
+                    res = await fetch('/api/leads');
+                }
                 const data = await res.json();
                 if (data.success && Array.isArray(data.leads)) {
                     allLeads = data.leads;
@@ -638,6 +641,36 @@
 
         document.getElementById('btnRefresh').addEventListener('click', () => {
             fetchLeads();
+        });
+
+        // 1-Click Instant CSV Export (Works 100% on Vercel without server dependency)
+        document.getElementById('btnExportCsv').addEventListener('click', () => {
+            if (!allLeads || allLeads.length === 0) {
+                alert('No leads to export yet!');
+                return;
+            }
+            let csv = 'ID,Full Name,Mobile Number,Coupon Code,Ticket ID,Prize Won,Claim Code,Status,Registration Date\n';
+            allLeads.forEach(l => {
+                const clean = (val) => `"${String(val || '').replace(/"/g, '""')}"`;
+                csv += [
+                    clean(l.id),
+                    clean(l.fullName),
+                    clean(l.mobile),
+                    clean(l.couponCode),
+                    clean(l.ticketId),
+                    clean(l.prizeWon || 'Pending Spin'),
+                    clean(l.claimCode || '-'),
+                    clean(l.status || 'Registered'),
+                    clean(l.createdAt || '-')
+                ].join(',') + '\n';
+            });
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.setAttribute('download', 'aura_leads_' + new Date().toISOString().substring(0, 10) + '.csv');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         });
 
         // Initialize on load
