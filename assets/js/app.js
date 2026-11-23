@@ -373,7 +373,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const spunData = alreadySpun ? getSpunData(cleanMobile) : null;
 
             // Generate Unique Participant Ticket ID
-            const ticketId = (spunData && spunData.ticketId) || ('AURA-' + Math.floor(100000 + Math.random() * 900000));
+            const ticketId = (spunData && spunData.ticketId) || ('RSM-' + Math.floor(100000 + Math.random() * 900000));
             const participantData = {
                 fullName: name,
                 mobile: cleanMobile,
@@ -616,7 +616,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function openClaimDialog() {
         if (!elements.claimModal) return;
 
-        const code = (elements.modalClaimCode && elements.modalClaimCode.textContent) || 'WIN-AURA-2026';
+        const code = (elements.modalClaimCode && elements.modalClaimCode.textContent) || 'WIN-RSM-SEONI';
         const name = (state.participant && state.participant.fullName) || 'Lucky Participant';
         const prizeName = (state.lastPrizeWon && state.lastPrizeWon.name) || 'Official Campaign Reward';
 

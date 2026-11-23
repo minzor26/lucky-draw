@@ -5,14 +5,14 @@
  */
 
 const CAMPAIGN_CONFIG = {
-    campaignName: "AURA 2026",
-    campaignTitle: "Global Lucky Draw Campaign",
+    campaignName: "RS Mobile Seoni",
+    campaignTitle: "RS Mobile Seoni Lucky Draw Campaign",
     // Campaign end date for countdown (set to 7 days from now by default)
     endDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
     // Allow participation only once per verified mobile number
     singleEntryPerUser: true,
-    supportEmail: "support@auradraw2026.com",
-    hotline: "+1 (800) 555-AURA"
+    supportEmail: "support@rsmobileseoni.com",
+    hotline: "+91 RS Mobile Seoni"
 };
 
 const PRIZE_CONFIG = [
@@ -156,12 +156,12 @@ const PRIZE_CONFIG = [
 
 // Seed recent winners for live showcase & fallback
 const RECENT_WINNERS_DATA = [
-    { name: "Aarav Sharma", city: "Mumbai", prize: "Grand Prize: iPhone 16 Pro Max", time: "3 mins ago", tier: "grand" },
-    { name: "Priya Patel", city: "Bengaluru", prize: "Wireless ANC Studio Headphones", time: "18 mins ago", tier: "premium" },
-    { name: "Rohan Deshmukh", city: "Pune", prize: "Portable Bluetooth Party Speaker", time: "32 mins ago", tier: "special" },
-    { name: "Ananya Sen", city: "Kolkata", prize: "20,000mAh Fast Power Bank", time: "45 mins ago", tier: "reward" },
-    { name: "Vikram Malhotra", city: "New Delhi", prize: "AMOLED Smart Fitness Watch", time: "1 hour ago", tier: "special" },
-    { name: "Sneha Reddy", city: "Hyderabad", prize: "High-Bass Stereo Earphones", time: "2 hours ago", tier: "reward" },
-    { name: "Kabir Mehta", city: "Ahmedabad", prize: "Premium Designer Phone Cover", time: "3 hours ago", tier: "reward" },
-    { name: "Deepak Verma", city: "Jaipur", prize: "65W Fast Charging Braided Cable", time: "4 hours ago", tier: "reward" }
+    { name: "Aarav Sharma", city: "Seoni", prize: "Grand Prize: iPhone 16 Pro Max", time: "3 mins ago", tier: "grand" },
+    { name: "Priya Patel", city: "Jabalpur", prize: "Wireless ANC Studio Headphones", time: "18 mins ago", tier: "premium" },
+    { name: "Rohan Deshmukh", city: "Nagpur", prize: "Portable Bluetooth Party Speaker", time: "32 mins ago", tier: "special" },
+    { name: "Ananya Sen", city: "Seoni", prize: "20,000mAh Fast Power Bank", time: "45 mins ago", tier: "reward" },
+    { name: "Vikram Malhotra", city: "Chhindwara", prize: "AMOLED Smart Fitness Watch", time: "1 hour ago", tier: "special" },
+    { name: "Sneha Reddy", city: "Bhopal", prize: "High-Bass Stereo Earphones", time: "2 hours ago", tier: "reward" },
+    { name: "Kabir Mehta", city: "Seoni", prize: "Premium Designer Phone Cover", time: "3 hours ago", tier: "reward" },
+    { name: "Deepak Verma", city: "Jabalpur", prize: "65W Fast Charging Braided Cable", time: "4 hours ago", tier: "reward" }
 ];
