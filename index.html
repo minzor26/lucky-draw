@@ -391,12 +391,6 @@
                     <h3 class="fallback-title">Winners will be announced soon.</h3>
                     <p class="fallback-desc">The draw is currently ongoing. Stay tuned for the upcoming announcement roll.</p>
                 </div>
-
-                <div class="winners-action-row">
-                    <button id="btnToggleWinnersState" class="btn-toggle-state" type="button">
-                        Simulate Empty / Pre-Draw State
-                    </button>
-                </div>
             </div>
         </section>
 
@@ -660,18 +654,18 @@
                         <span>CLAIM YOUR PRIZE</span>
                         <span>🎁</span>
                     </button>
-                    <button id="btnBackHome" class="btn-secondary" type="button">
-                        <span>BACK TO HOME</span>
+                    <button id="btnSpinAnother" class="btn-secondary" type="button">
+                        <span>🔄 SPIN WITH ANOTHER NUMBER</span>
                     </button>
                 </div>
             </div>
 
-            <!-- NON-WINNER STATE -->
+            <!-- NON-WINNER STATE (FALLBACK) -->
             <div id="modalNonWinnerState" style="display: none;">
                 <div class="non-winner-icon">✨</div>
-                <h2 class="non-winner-title">BETTER LUCK NEXT TIME!</h2>
+                <h2 class="non-winner-title">SPECIAL REWARD ENTRY!</h2>
                 <p class="non-winner-message">
-                    Thank you for participating. Keep an eye out for our next exciting campaign. Your entry ticket has been entered into the Grand Finale community raffle!
+                    Thank you for participating! Your entry ticket has been entered into the Grand Finale community raffle.
                 </p>
                 <div class="modal-button-group">
                     <button id="btnNonWinnerHome" class="btn-primary" type="button">
@@ -782,38 +776,6 @@
             </div>
         </div>
     </footer>
-
-    <!-- DEMO / TEST CONTROLS DRAWER (For testing & review) -->
-    <button id="btnToggleDemo" class="demo-toggle-pill" type="button" title="Test &amp; Preview Controls">
-        <span>⚡</span>
-        <span>Test Controls</span>
-    </button>
-
-    <aside id="demoDrawer" class="demo-drawer" aria-label="Demo Tester Controls">
-        <div class="demo-header">
-            <span class="demo-title">⚡ Developer / Tester Suite</span>
-            <button id="btnCloseDemo" class="demo-close-btn" type="button">✕</button>
-        </div>
-
-        <div class="demo-subtitle">Force Draw Outcome</div>
-        <div class="demo-buttons-grid">
-            <button class="btn-demo-action" data-force-prize="grand_prize">🏆 Force iPhone 16 Pro Max</button>
-            <button class="btn-demo-action" data-force-prize="anc_headphones">🎧 Force ANC Headphones</button>
-            <button class="btn-demo-action" data-force-prize="smart_watch">⌚ Force Smart Watch</button>
-            <button class="btn-demo-action" data-force-prize="bt_speaker">🔊 Force BT Speaker</button>
-            <button class="btn-demo-action" data-force-prize="power_bank">🔋 Force 20,000mAh Power Bank</button>
-            <button class="btn-demo-action" data-force-prize="earphones">🎵 Force Stereo Earphones</button>
-            <button class="btn-demo-action" data-force-prize="phone_cover">📱 Force Phone Cover</button>
-            <button class="btn-demo-action" data-force-prize="fast_cable">🔌 Force Fast Cable</button>
-        </div>
-
-        <div class="demo-subtitle">Simulations</div>
-        <div class="demo-buttons-grid">
-            <button id="btnTestConfetti" class="btn-demo-action">🎉 Trigger Confetti &amp; Fanfare</button>
-            <button id="btnResetParticipant" class="btn-demo-action">🔄 Reset Registration &amp; Spin State</button>
-            <button id="btnToggleCampaignClosed" class="btn-demo-action">⏱️ Toggle Campaign Closed</button>
-        </div>
-    </aside>
 
     <!-- Application JavaScript Modules -->
     <script src="assets/js/prizes-config.js"></script>

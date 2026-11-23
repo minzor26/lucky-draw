@@ -5,11 +5,42 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Helper to track spins per mobile number
+    function getSpunMobiles() {
+        try {
+            return JSON.parse(localStorage.getItem('aura_spun_mobiles') || '{}');
+        } catch (e) {
+            return {};
+        }
+    }
+    function markMobileSpun(mobile, prize, ticketId) {
+        if (!mobile) return;
+        const map = getSpunMobiles();
+        map[mobile] = {
+            prize: prize,
+            ticketId: ticketId,
+            spunAt: new Date().toISOString()
+        };
+        localStorage.setItem('aura_spun_mobiles', JSON.stringify(map));
+    }
+    function hasMobileSpun(mobile) {
+        if (!mobile) return false;
+        const map = getSpunMobiles();
+        return !!map[mobile];
+    }
+    function getSpunData(mobile) {
+        if (!mobile) return null;
+        const map = getSpunMobiles();
+        return map[mobile] || null;
+    }
+
     // 1. Initialize State
+    const savedParticipant = JSON.parse(localStorage.getItem('aura_participant') || 'null');
+    const participantSpunData = savedParticipant ? getSpunData(savedParticipant.mobile) : null;
     const state = {
-        participant: JSON.parse(localStorage.getItem('aura_participant') || 'null'),
-        hasSpun: localStorage.getItem('aura_has_spun') === 'true',
-        lastPrizeWon: JSON.parse(localStorage.getItem('aura_last_prize') || 'null'),
+        participant: savedParticipant,
+        hasSpun: !!participantSpunData,
+        lastPrizeWon: participantSpunData ? participantSpunData.prize : JSON.parse(localStorage.getItem('aura_last_prize') || 'null'),
         isCampaignClosed: false,
         forcedPrizeId: null // Used by test controls
     };
@@ -57,6 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
         modalPrizeIcon: document.getElementById('modalPrizeIcon'),
         modalClaimCode: document.getElementById('modalClaimCode'),
         btnClaimPrize: document.getElementById('btnClaimPrize'),
+        btnSpinAnother: document.getElementById('btnSpinAnother'),
         btnBackHome: document.getElementById('btnBackHome'),
         btnNonWinnerHome: document.getElementById('btnNonWinnerHome'),
 
@@ -212,16 +244,23 @@ document.addEventListener('DOMContentLoaded', () => {
             onSpinComplete: (prize) => {
                 state.hasSpun = true;
                 state.lastPrizeWon = prize;
+                if (state.participant && state.participant.mobile) {
+                    markMobileSpun(state.participant.mobile, prize, state.participant.ticketId);
+                }
                 localStorage.setItem('aura_has_spun', 'true');
                 localStorage.setItem('aura_last_prize', JSON.stringify(prize));
 
                 if (elements.drawNowBtn) {
                     elements.drawNowBtn.classList.remove('spinning');
                     elements.drawNowBtn.disabled = true;
-                    elements.drawNowBtn.textContent = 'DRAW COMPLETED';
+                    elements.drawNowBtn.classList.add('disabled-btn');
+                    elements.drawNowBtn.innerHTML = '<span>DRAW</span><span>DONE</span><span class="hub-subtext">COMPLETED</span>';
                 }
                 if (elements.drawHubStatus) {
-                    elements.drawHubStatus.textContent = 'COMPLETE';
+                    elements.drawHubStatus.textContent = 'DRAW COMPLETED';
+                }
+                if (elements.gameNotice) {
+                    elements.gameNotice.textContent = 'Congratulations! You have completed your lucky draw turn.';
                 }
 
                 // Show Result Modal with Suspense
@@ -242,19 +281,36 @@ document.addEventListener('DOMContentLoaded', () => {
                 elements.participantNameDisplay.textContent = state.participant.fullName;
             }
             if (elements.ticketNumberDisplay) {
-                elements.ticketNumberDisplay.textContent = state.participant.ticketId;
-            }
-            if (elements.gameNotice) {
-                if (state.hasSpun) {
-                    elements.gameNotice.textContent = 'You have already used your campaign draw entry. View your result below.';
-                } else {
-                    elements.gameNotice.textContent = 'Your entry is verified! Click "DRAW NOW" in the center of the wheel to play.';
-                }
+                elements.ticketNumberDisplay.textContent = '#' + state.participant.ticketId;
             }
 
-            if (state.hasSpun && elements.drawNowBtn) {
-                elements.drawNowBtn.disabled = true;
-                elements.drawNowBtn.textContent = 'DRAW COMPLETED';
+            const mobileSpun = hasMobileSpun(state.participant.mobile);
+            state.hasSpun = mobileSpun;
+
+            if (mobileSpun) {
+                if (elements.gameNotice) {
+                    elements.gameNotice.textContent = `Entry for ${state.participant.mobile} is already completed. Want to test another number? Click "Spin with another number" below.`;
+                }
+                if (elements.drawHubStatus) {
+                    elements.drawHubStatus.textContent = 'DRAW COMPLETED';
+                }
+                if (elements.drawNowBtn) {
+                    elements.drawNowBtn.disabled = true;
+                    elements.drawNowBtn.classList.add('disabled-btn');
+                    elements.drawNowBtn.innerHTML = '<span>DRAW</span><span>DONE</span><span class="hub-subtext">COMPLETED</span>';
+                }
+            } else {
+                if (elements.gameNotice) {
+                    elements.gameNotice.textContent = 'Your entry is verified! Click "DRAW NOW" in the center of the wheel to play.';
+                }
+                if (elements.drawHubStatus) {
+                    elements.drawHubStatus.textContent = 'READY TO DRAW';
+                }
+                if (elements.drawNowBtn) {
+                    elements.drawNowBtn.disabled = false;
+                    elements.drawNowBtn.classList.remove('disabled-btn', 'spinning');
+                    elements.drawNowBtn.innerHTML = '<span>DRAW</span><span>NOW</span><span class="hub-subtext">TAP TO SPIN</span>';
+                }
             }
         } else {
             if (elements.participantBadge) {
@@ -262,6 +318,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             if (elements.gameNotice) {
                 elements.gameNotice.textContent = 'Please enter your details in the participation form above to unlock the lucky draw.';
+            }
+            if (elements.drawHubStatus) {
+                elements.drawHubStatus.textContent = 'READY TO DRAW';
+            }
+            if (elements.drawNowBtn) {
+                elements.drawNowBtn.disabled = false;
+                elements.drawNowBtn.classList.remove('disabled-btn', 'spinning');
+                elements.drawNowBtn.innerHTML = '<span>DRAW</span><span>NOW</span><span class="hub-subtext">TAP TO SPIN</span>';
             }
         }
     }
@@ -304,27 +368,42 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
+            // Check if this mobile has already spun
+            const alreadySpun = hasMobileSpun(cleanMobile);
+            const spunData = alreadySpun ? getSpunData(cleanMobile) : null;
+
             // Generate Unique Participant Ticket ID
-            const ticketId = 'AURA-' + Math.floor(100000 + Math.random() * 900000);
+            const ticketId = (spunData && spunData.ticketId) || ('AURA-' + Math.floor(100000 + Math.random() * 900000));
             const participantData = {
                 fullName: name,
                 mobile: cleanMobile,
                 ticketId: ticketId,
-                registeredAt: new Date().toISOString()
+                registeredAt: (spunData && spunData.spunAt) || new Date().toISOString()
             };
 
             // Save to State & LocalStorage
             state.participant = participantData;
+            state.hasSpun = alreadySpun;
+            if (spunData && spunData.prize) {
+                state.lastPrizeWon = spunData.prize;
+            } else if (!alreadySpun) {
+                state.lastPrizeWon = null;
+            }
             localStorage.setItem('aura_participant', JSON.stringify(participantData));
 
             // Visual feedback on submit button
             elements.submitBtn.disabled = true;
-            elements.submitBtn.innerHTML = '<span class="spinner-inline"></span> GENERATING ENTRY PASS...';
+            elements.submitBtn.innerHTML = '<span class="spinner-inline"></span> VERIFYING ENTRY PASS...';
 
             setTimeout(() => {
                 elements.submitBtn.disabled = false;
                 elements.submitBtn.textContent = 'PARTICIPATE NOW';
-                showFormAlert(`Registration successful! Welcome, ${name}. Your ticket #${ticketId} has been unlocked.`, 'success');
+
+                if (alreadySpun) {
+                    showFormAlert(`Welcome back, ${name}! Mobile ${cleanMobile} has already used its lucky draw entry. You can review your prize below.`, 'error');
+                } else {
+                    showFormAlert(`Registration successful! Welcome, ${name}. Your ticket #${ticketId} has been unlocked.`, 'success');
+                }
 
                 // Update UI badge
                 updateParticipantStatusUI();
@@ -335,11 +414,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     gameSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }
 
-                // Celebrate ticket unlock with micro sound
-                if (window.soundEngine) {
+                // Celebrate ticket unlock with micro sound if new
+                if (!alreadySpun && window.soundEngine) {
                     window.soundEngine.playWinFanfare();
                 }
-            }, 800);
+            }, 700);
         });
     }
 
@@ -492,6 +571,31 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.btnBackHome.addEventListener('click', () => {
             closeResultModal();
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+    if (elements.btnSpinAnother) {
+        elements.btnSpinAnother.addEventListener('click', () => {
+            closeResultModal();
+            // Reset active participant state so a new number can register
+            state.participant = null;
+            state.hasSpun = false;
+            state.lastPrizeWon = null;
+            localStorage.removeItem('aura_participant');
+
+            if (elements.participationForm) {
+                elements.participationForm.reset();
+            }
+            clearInputErrors();
+            updateParticipantStatusUI();
+
+            const formSection = document.getElementById('participate');
+            if (formSection) {
+                formSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            if (elements.fullNameInput) {
+                elements.fullNameInput.focus();
+            }
+            showFormAlert('Ready for next spin! Enter new participant name and mobile number.', 'success');
         });
     }
     if (elements.btnNonWinnerHome) {
@@ -687,6 +791,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 state.forcedPrizeId = prizeId;
                 state.hasSpun = false; // Allow spin
                 localStorage.removeItem('aura_has_spun');
+                if (state.participant && state.participant.mobile) {
+                    const map = getSpunMobiles();
+                    delete map[state.participant.mobile];
+                    localStorage.setItem('aura_spun_mobiles', JSON.stringify(map));
+                }
                 updateParticipantStatusUI();
 
                 if (!state.participant) {
@@ -728,15 +837,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 localStorage.removeItem('aura_participant');
                 localStorage.removeItem('aura_has_spun');
                 localStorage.removeItem('aura_last_prize');
+                localStorage.removeItem('aura_spun_mobiles');
                 state.participant = null;
                 state.hasSpun = false;
                 state.lastPrizeWon = null;
+                state.forcedPrizeId = null;
                 updateParticipantStatusUI();
                 if (elements.participationForm) {
                     elements.participationForm.reset();
                 }
                 clearInputErrors();
-                alert('Participant state has been reset. You can now register as a fresh participant!');
+                alert('All participant and spin history cleared! Wheel is 100% reset and ready.');
             });
         }
 
