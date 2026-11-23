@@ -386,6 +386,8 @@ class LuckyWheel {
             case 'watch': return '⌚';
             case 'gift': return '🎁';
             case 'tag': return '🎟️';
+            case 'speaker': return '🔊';
+            case 'powerbank': return '🔋';
             case 'earphones': return '🎵';
             case 'case': return '📱';
             case 'cable': return '🔌';

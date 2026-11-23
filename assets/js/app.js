@@ -34,8 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
         participationForm: document.getElementById('participationForm'),
         fullNameInput: document.getElementById('fullName'),
         mobileInput: document.getElementById('mobileNumber'),
-        couponInput: document.getElementById('couponCode'),
-        termsCheckbox: document.getElementById('termsAgreement'),
         submitBtn: document.getElementById('submitBtn'),
         formAlert: document.getElementById('formAlert'),
 
@@ -282,8 +280,6 @@ document.addEventListener('DOMContentLoaded', () => {
             // Read Inputs
             const name = elements.fullNameInput.value.trim();
             const mobile = elements.mobileInput.value.trim();
-            const coupon = elements.couponInput ? elements.couponInput.value.trim().toUpperCase() : '';
-            const termsAgreed = elements.termsCheckbox.checked;
 
             // Reset field error styles
             clearInputErrors();
@@ -304,22 +300,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 hasError = true;
             }
 
-            // Optional Coupon Validation (if entered, check against config)
-            if (coupon && CAMPAIGN_CONFIG.requireEntryCode) {
-                if (!CAMPAIGN_CONFIG.validEntryCodes.includes(coupon)) {
-                    setInputError(elements.couponInput, `Invalid entry code. Valid codes include: ${CAMPAIGN_CONFIG.validEntryCodes.slice(0, 2).join(', ')}`);
-                    hasError = true;
-                }
-            }
-
-            // Terms Validation
-            if (!termsAgreed) {
-                const termsGroup = elements.termsCheckbox.closest('.checkbox-wrapper') || elements.termsCheckbox;
-                termsGroup.classList.add('input-error-border');
-                showFormAlert('You must agree to the Terms & Conditions and Privacy Policy to participate.', 'error');
-                hasError = true;
-            }
-
             if (hasError) {
                 return;
             }
@@ -329,7 +309,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const participantData = {
                 fullName: name,
                 mobile: cleanMobile,
-                coupon: coupon,
                 ticketId: ticketId,
                 registeredAt: new Date().toISOString()
             };
