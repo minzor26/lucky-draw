@@ -317,22 +317,6 @@ document.addEventListener('DOMContentLoaded', () => {
             state.participant = participantData;
             localStorage.setItem('aura_participant', JSON.stringify(participantData));
 
-            // Sync with SQLite Database API
-            fetch('/api/participate', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(participantData)
-            }).then(r => r.json()).then(res => {
-                if (res && res.ticketId) {
-                    participantData.ticketId = res.ticketId;
-                    state.participant.ticketId = res.ticketId;
-                    localStorage.setItem('aura_participant', JSON.stringify(state.participant));
-                    if (elements.ticketNumberDisplay) {
-                        elements.ticketNumberDisplay.textContent = res.ticketId;
-                    }
-                }
-            }).catch(e => console.warn('Database lead sync warning:', e));
-
             // Visual feedback on submit button
             elements.submitBtn.disabled = true;
             elements.submitBtn.innerHTML = '<span class="spinner-inline"></span> GENERATING ENTRY PASS...';
@@ -458,20 +442,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const claimCode = 'WIN-' + Math.floor(1000 + Math.random() * 9000) + '-' + prize.tier.toUpperCase();
             if (elements.modalClaimCode) {
                 elements.modalClaimCode.textContent = claimCode;
-            }
-
-            // Sync Prize Won with SQLite Database
-            if (state.participant && state.participant.ticketId) {
-                fetch('/api/record-win', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        ticketId: state.participant.ticketId,
-                        prizeName: prize.name,
-                        prizeTier: prize.tier,
-                        claimCode: claimCode
-                    })
-                }).catch(e => console.warn('Record win sync warning:', e));
             }
 
             // Play celebratory audio & burst confetti
